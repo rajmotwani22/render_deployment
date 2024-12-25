@@ -9,3 +9,4 @@ python-multipart==0.0.5
 peewee==3.15.0
 requests==2.28.1
 lxml==4.9.2
+numpy==1.21.0
