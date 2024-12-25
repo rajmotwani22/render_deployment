@@ -257,6 +257,11 @@ async def index(request: Request):
 #    return {"message": "Hello World"}
 
 
+
+# Routes
+@app.get("/", response_class=HTMLResponse)
+async def index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 @app.post("/calculate", response_class=HTMLResponse)
 async def calculate(
     request: Request,
@@ -275,13 +280,16 @@ async def calculate(
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         filename = f"user_{timestamp}"
 
+        # Simulate investment growth
+        post_investment = savings * 1.15
+
         # Save to DB
         with sqlite3.connect(DATABASE) as conn:
             cursor = conn.cursor()
             cursor.execute("""
                 INSERT INTO user_data (name, rent, utilities, groceries, other_expenses, earnings, total_expenses, savings, post_investment, timestamp)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            """, (name, rent, utilities, groceries, other_expenses, earnings, total_expenses, savings, 0, timestamp))
+            """, (name, rent, utilities, groceries, other_expenses, earnings, total_expenses, savings, post_investment, timestamp))
             conn.commit()
 
         # Create charts
@@ -295,11 +303,9 @@ async def calculate(
 
         expense_pie_chart = visualize_expense_breakdown([rent, utilities, groceries, other_expenses], filename)
         savings_growth_chart = visualize_savings_growth(savings, filename)
-        post_investment = savings * 1.15  # Simulate investment growth
         bar_chart_path = visualize_investment_bar_chart(savings, post_investment, filename)
 
         total_post_investment_amount = investment_df["Post-Investment Amount ($)"].sum()
-
 
         # Render results
         return templates.TemplateResponse(
@@ -326,7 +332,6 @@ async def calculate(
         )
     except Exception as e:
         return templates.TemplateResponse("index.html", {"request": request, "error": str(e)})
-
 
 if __name__ == "__main__":
     import uvicorn
