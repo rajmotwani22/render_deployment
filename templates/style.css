@@ -1,0 +1,73 @@
+/* Custom Leaderboard Styles */
+body {
+    background: #f8f9fa;
+}
+
+.container {
+    max-width: 960px;
+}
+
+.table-hover tbody tr:hover {
+    background: #e9ecef;
+    transition: background 0.2s ease-in-out;
+}
+
+.leader-row {
+    border-left: 4px solid #198754;
+}
+
+.leader-row th {
+    font-size: 1.5rem;
+    color: #198754;
+}
+
+
+.highlight {
+    background-color: #ffeb3b; /* Highlight with a yellow background */
+    font-weight: bold;        /* Bold text */
+    border-radius: 4px;       /* Round corners */
+    padding: 10px;            /* Add padding */
+    animation: fadeInGlow 1.5s ease-in-out;
+}
+
+/* Keyframes for fade-in and glowing border */
+@keyframes fadeInGlow {
+    0% {
+        background-color: #fffde7; /* Lighter yellow to start */
+        box-shadow: 0 0 5px rgba(255, 235, 59, 0.5);
+    }
+    50% {
+        background-color: #ffeb3b; /* Transition to brighter yellow */
+        box-shadow: 0 0 15px rgba(255, 235, 59, 0.8);
+    }
+    100% {
+        background-color: #fffde7; /* Return to lighter yellow */
+        box-shadow: 0 0 5px rgba(255, 235, 59, 0.5);
+    }
+}
+
+.table thead th {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+}
+
+.fw-bold {
+    font-weight: bold !important;
+}
+
+.text-success {
+    color: #28a745 !important;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.text-dark {
+    color: #343a40 !important;
+}
+
+.badge {
+    font-size: 1rem !important;
+    padding: 0.5rem 1rem;
+}
